@@ -31,7 +31,7 @@ int main(void)
     voltage = ADC * 5.0 / 1024.0;
 
     // Let LED show result
-    if (voltage < 2.4)
+    if (voltage < 2)
     {
       blinkLED(2);
     }
