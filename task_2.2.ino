@@ -74,7 +74,7 @@ int main(void) {
   sei();
   
   // initialize serial communication at 9600 bits per second:
-  Serial.begin(9600); 
+  //Serial.begin(9600); 
 
 
   // the loop routine runs over and over again forever:
@@ -91,7 +91,7 @@ int main(void) {
       }
 
       // print out the value you read:
-      Serial.println(database[end]);
+      //Serial.println(database[end]);
       state = 0;
     }
     
