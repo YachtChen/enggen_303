@@ -28,7 +28,7 @@ int main(void)
     ADCSRA |= (1 << ADSC); // start conversion
 
     // Convert 10 bit ADC reading to voltage
-    voltage = ADC * 5.0 / 1023.0;
+    voltage = ADC * 5.0 / 1024.0;
 
     // Let LED show result
     if (voltage < 2.4)
