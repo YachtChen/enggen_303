@@ -19,7 +19,7 @@ int count = 0;
 int compare = 490;
 
 // Declare Ring buffer variables
-#define SIZE_OF_BUFFER 5
+#define SIZE_OF_BUFFER 1000
 volatile int start = -1;
 volatile int end = -1;
 volatile int printfrom = -1;
