@@ -10,12 +10,36 @@ for i = 1:numel(log_files)
     data{i} = make_data_in_phase(data{i});
 end
 
+for i = 1:numel(log_files)
+    for j = 1:numel(data{i})
+        bits = 0;
+        data{i}(j) = bitshift(int16(data{i}(j)), 2) + bits;
+        if ((data{i}(j)==0)&&(j>5))
+            data{i}(j) = data{i}(j-1);
+        end
+    end
+end
+
+% Generate the time values for the sawtooth signal
+t = linspace(0, 1000, 1000);
+
+
+sawtooth_signal = 1023/2* (1 - sawtooth(2 * pi * t / 1000, 0));
+
+
 % Plot the data
 figure
 hold on
 for i = 1:numel(log_files)
-    plot(data{i}, 'DisplayName', log_files{i})
+    %plot(data{i}, 'DisplayName', log_files{i})
+    % Compute the trend line
+    p = polyfit(1:numel(data{i}), data{i}, 1);
+    p(2) = 0;
+    disp(p(1));
+    trend_line = polyval(p, 1:numel(data{i}));
+    plot(trend_line);
 end
+plot(sawtooth_signal, 'DisplayName', 'Sawtooth Signal')
 hold off
 xlabel('Index')
 ylabel('Values')
@@ -38,11 +62,11 @@ function data = read_log_file(file_name)
     data = str2double(file_lines);
 end
 
+
 % Function to make data in phase by starting from zero and wrapping around
 function data = make_data_in_phase(data)
     % Find the index of the first zero in the data
     first_zero_idx = find(data == 0, 1, 'first');
-    
     % Reorder the data to start from zero and wrap around
     data = [data(first_zero_idx:end); data(1:first_zero_idx-1)];
 end
